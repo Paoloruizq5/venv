@@ -1,37 +1,47 @@
 {% extends 'base.html' %}
-{% block title %}Lista de alumnos{% endblock %}
+{% block title %}Lista de Alumnos{% endblock %}
 
 {% block content %}
+<div class="container mt-4">
 
-<a href="{{ url_for('create_alumno') }}" class="btn btn-success mb-3">Agregar Alumno </a>
-<br>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>No. control</th>
-            <th>Nombre</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
-            <th>Semestre</th>
-            <th>Acciones</th>
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ url_for('create_alumno') }}" class="btn btn-success">
+            <i class="fas fa-user-plus"></i> Agregar Alumno
+        </a>
+    </div>
 
-        </tr>
-    </thead>
-    <tbody>
-        {% for alumno in alumnos %}
-        <tr>
-            <td>{{ alumno.no_control }}</td>
-            <td>{{ alumno.nombre }}</td>
-            <td>{{ alumno.ap_paterno }}</td>
-            <td>{{ alumno.ap_materno }}</td>
-            <td>{{ alumno.semestre }}</td>
-            <td>
-                <a href="{{url_for('update_alumno' , no_control = alumno.no_control )}}" class="btn btn-warning">Actualizar</a>
-                <a href="{{url_for('delete_alumno' , no_control = alumno.no_control )}}" class="btn btn-danger">Eliminar </a> 
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>Numero Control</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Semestre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alumno in alumnos %}
+                <tr>
+                    <td class="text-center">{{ alumno.no_control }}</td>
+                    <td>{{ alumno.nombre }}</td>
+                    <td>{{ alumno.ap_paterno }}</td>
+                    <td>{{ alumno.ap_materno }}</td>
+                    <td class="text-center">{{ alumno.semestre }}</td>
+                    <td class="text-center">
+                        <a href="{{ url_for('update_alumno', no_control=alumno.no_control) }}" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="{{ url_for('delete_alumno', no_control=alumno.no_control) }}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash-alt"></i> Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
